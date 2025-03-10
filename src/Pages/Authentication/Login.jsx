@@ -66,14 +66,35 @@ const Login = () => {
           onChange={(e) => setPayload(e.target.value)}
         />
         {!loading ? (
-          <button className="login-page-btn-primary" onClick={handleLogin}>
-            Continue
-          </button>
+          <button 
+          className="login-page-btn-primary" 
+          style={{
+            backgroundColor: "black",
+            color: "white",
+            padding: "12px 20px",
+            border: "none",
+            borderRadius: "5px",
+            fontSize: "16px",
+            cursor: "pointer",
+            transition: "background-color 0.3s ease-in-out"
+          }}
+          onMouseEnter={(e) => (e.target.style.backgroundColor = "#333")}
+          onMouseLeave={(e) => (e.target.style.backgroundColor = "black")}
+          onClick={handleLogin}
+        >
+          Continue
+        </button>
+        
         ) : (
           <button className="login-page-btn-primary">
             <CircularProgress size="30px" />
           </button>
         )}
+        <p className="login-footer">
+          By continuing, I agree to RingLudo's
+          <a href="#"> Privacy Policy</a> and confirm that I am 18 years or older.
+          I am not playing from Assam, Odisha, Nagaland, Sikkim, Meghalaya, Andhra Pradesh, or Telangana.
+        </p>
       </section>
     </main>
   );
