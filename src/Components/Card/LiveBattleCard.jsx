@@ -5,19 +5,20 @@ const LiveBattleCard = ({ data }) => {
   const navigate = useNavigate();
   return (
     <div className="openbattlecard-main-block">
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ display: "flex", justifyContent: "space-between",borderBottom: "0.5px solid rgb(134,57,182)", margin: "0 -0.4rem", padding: "0.2rem" }}>
         <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-          <div>PLAYING FOR</div>
+          <div>
+            PLAYING FOR</div>
           <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-            <img src="/rupeeIcon.gif" style={{ height: "1.5em" }} />
+            <img src="/rupes322.jpg" style={{ height: "1.5em" }} />
             <div>{data?.entryFee}</div>
           </div>
         </div>
         <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-          <div>Prize</div>
+          <div style={{color:"green"}}>Prize</div>
           <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-            <img src="/rupeeIcon.gif" style={{ height: "1.5em" }} />
-            <div>{data?.winnerAmount}</div>
+            <img src="/rupes322.jpg" style={{ height: "1.5em" }} />
+            <div style={{fontWeight:"700"}}>{data?.winnerAmount}</div>
           </div>
         </div>
       </div>
@@ -25,7 +26,7 @@ const LiveBattleCard = ({ data }) => {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          paddingTop: "1rem",
+          // paddingTop: "1rem",
           alignItems: "center",
         }}
       >
@@ -33,7 +34,7 @@ const LiveBattleCard = ({ data }) => {
           style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
         >
           <img
-            src="/mainLogoRing.png"
+            src="/avator233.jpeg"
             style={{
               height: "4em",
               width: "4em",
@@ -48,13 +49,13 @@ const LiveBattleCard = ({ data }) => {
           </div>
         </div>
         <div>
-          <img src="/versus.png" style={{ height: "2.5em" }} />
+          <img src="/vs32.jpeg" style={{ height: "4.5em" }} />
         </div>
         <div
           style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
         >
           <img
-            src="/mainLogoRing.png"
+            src="/avator233.jpeg"
             style={{
               height: "4em",
               width: "4em",

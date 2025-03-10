@@ -28,7 +28,7 @@ const Navbar = ({ toggleDrawer }) => {
               : navigate("/login")
           }
         >
-          <img src="/mainLogoRing.png" style={{ height: "2.8rem" }} />
+          <img src="/mainLogoRing.png" style={{ height: "3.4rem" }} />
         </div>
         <div className="navbar-right-alignment">
           {!Cookies.get("verifyToken") ? (
@@ -51,6 +51,11 @@ const Navbar = ({ toggleDrawer }) => {
                   paddingRight: "9px",
                   alignItems: "center",
                   overflow: "hidden",
+                  color:"white",
+                  borderRadius:"20px",
+                  background: "linear-gradient(to bottom, #ff6666, #1a1a1a)", // Light Red to Black
+
+
                 }}
                 onClick={() => navigate("/wallet")}
               >
@@ -65,7 +70,7 @@ const Navbar = ({ toggleDrawer }) => {
                     textAlign: "start",
                   }}
                 >
-                  <div style={{ color: "grey" }}>Cash</div>
+                  <div style={{ color: "white" }}>Cash</div>
                   <div>
                     {(data?.totalBalance + data?.cashWon || 0).toString()
                       .length > 10
@@ -88,6 +93,10 @@ const Navbar = ({ toggleDrawer }) => {
                   paddingLeft: "9px",
                   paddingRight: "9px",
                   overflow: "hidden",
+                  borderRadius:"20px",
+                  color:"white",
+                  background: "linear-gradient(to bottom, #ff6666, #1a1a1a)", // Light Red to Black
+
                 }}
               >
                 <div>
@@ -101,7 +110,7 @@ const Navbar = ({ toggleDrawer }) => {
                     textAlign: "start",
                   }}
                 >
-                  <div style={{ color: "grey" }}>Earning</div>
+                  <div style={{ color: "white" }}>Earning</div>
                   <div>{data?.referralEarning || 0}</div>
                 </div>
               </button>

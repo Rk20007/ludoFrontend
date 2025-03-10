@@ -85,23 +85,23 @@ const OpenBattleCard = ({ data, isshow, wholeData }) => {
 
   return (
     <div className="openbattlecard-main-block">
-      <div>
-        CHALLENGE FROM{" "}
-        <span style={{ color: "yellow" }}>{data?.createdBy?.name}</span>
+<div style={{ borderBottom: "0.5px solid rgb(134,57,182)", margin: "0 -0.4rem", padding: "0.4rem" }}>
+CHALLENGE FROM{" "}
+        <span style={{ color: "green" }}>{data?.createdBy?.name}</span>
       </div>
       <div className="openbattlecard-main-block-2">
         <div style={{ display: "flex", gap: "2rem" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div>Entry Fee</div>
+            <div style={{color:"red"}}>Entry Fee</div>
             <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
               <img src="/rupeeIcon.gif" style={{ height: "1.5em" }} />
               <div>{data?.entryFee}</div>
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div>Prize</div>
+            <div style={{color:"red"}}>Prize</div>
             <div style={{ display: "flex", gap: "5px", alignItems: "center" }}>
-              <img src="/rupeeIcon.gif" style={{ height: "1.5em" }} />
+              <img src="/rupess32.jpeg" style={{ height: "1.5em" }} />
               <div>{data?.winnerAmount}</div>
             </div>
           </div>

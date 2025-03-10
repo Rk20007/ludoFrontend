@@ -127,8 +127,8 @@ export default function NavDrawer({ isOpen, toggleDrawer }) {
       sx={{
         width: 350,
         height: "100%",
-        backgroundColor: "rgb(134,57,182)",
-        backgroundImage: "radial-gradient(circle, rgba(134,57,182,1) 0%, rgba(0,95,255,1) 100%)",
+        backgroundColor: "black",
+        // backgroundImage: "radial-gradient(circle, rgba(134,57,182,1) 0%, rgba(0,95,255,1) 100%)",
         color: "white",
         overflowY: "hidden",
       }}
