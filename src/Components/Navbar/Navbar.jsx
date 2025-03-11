@@ -33,11 +33,28 @@ const Navbar = ({ toggleDrawer }) => {
               : navigate("/login")
           }
         >
-          <img src="/mainLogoRing.png" style={{ height: "5.0rem",paddingBottom:"10px" }} />
+<img 
+  src="/mainLogoRing.png" 
+  style={{ 
+    height: "2.5rem",
+    paddingBottom: "5px",
+  }} 
+/>
+<ArrowDownwardIcon
+              className="download-icon"
+              onClick={handleDownload}
+              style={{
+                fontSize: "28px",
+                color: "#ff6666",
+                cursor: "pointer",
+                height:"32px",
+              }}
+            />
         </div>
         <div className="navbar-right-alignment">
           {!Cookies.get("verifyToken") ? (
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+
             {/* Animated Download Icon */}
             <ArrowDownwardIcon
               className="download-icon"
@@ -49,6 +66,7 @@ const Navbar = ({ toggleDrawer }) => {
                 height:"42px"
               }}
             />
+           
             <button
               className="login-btn-primary"
               onClick={() => navigate("/login")}
@@ -63,15 +81,15 @@ const Navbar = ({ toggleDrawer }) => {
                 style={{
                   display: "flex",
                   gap: "10px",
-                  fontSize: "12px",
-                  width: "6rem",
+                  fontSize: "10px",
+                  width: "5.5rem",
                   paddingLeft: "9px",
                   paddingRight: "9px",
                   alignItems: "center",
                   overflow: "hidden",
                   color:"white",
-                  borderRadius:"20px",
-                  background: "linear-gradient(to bottom, #ff6666, #1a1a1a)", // Light Red to Black
+                  borderRadius:"30px",
+                  background: "linear-gradient(45deg,#c80001,#c80001,#0000,#fcfbfbb3)", // Light Red to Black
 
 
                 }}
@@ -105,15 +123,15 @@ const Navbar = ({ toggleDrawer }) => {
                 style={{
                   display: "flex",
                   gap: "10px",
-                  fontSize: "12px",
+                  fontSize: "10px",
                   alignItems: "center",
-                  width: "6rem",
+                  width: "5.5rem",
                   paddingLeft: "9px",
                   paddingRight: "9px",
                   overflow: "hidden",
-                  borderRadius:"20px",
+                  borderRadius:"30px",
                   color:"white",
-                  background: "linear-gradient(to bottom, #ff6666, #1a1a1a)", // Light Red to Black
+                  background: "linear-gradient(45deg,#c80001,#c80001,#0000,#fcfbfbb3)", // Light Red to Black
 
                 }}
               >

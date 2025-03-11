@@ -81,7 +81,7 @@ const OverviewCard = ({ title, stats, isSmallScreen }) => {
             })()}
             <div
               style={{
-                fontFamily: "cursive",
+                // fontFamily: "cursive",
                 fontWeight: "bold",
                 fontSize: "1.2rem",
               }}
