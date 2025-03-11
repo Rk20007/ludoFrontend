@@ -50,7 +50,7 @@ body {
   background-color: white;
   color: #082442;
   border: none;
-  padding: 5px 16px;
+  padding: 3px 16px;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
@@ -59,16 +59,18 @@ body {
   padding: 2.5rem;
 }
 .login-section-card {
-  background-color: white;
+  background-color: rgb(219, 142, 142);
   border-radius: 10px;
   padding-top: 20px;
   padding-bottom: 40px;
   padding-left: 2rem;
   padding-right: 2rem;
   display: flex;
+  color: white;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  border: 2px solid black;
   /* background-image: url("/loginImage2.jpeg"); */
   row-gap: 2rem;
 }
@@ -870,7 +872,7 @@ input[type="number"] {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background-color: #FFFF6E;
+  background-color: #ffff6e00;
 }
 .tournament-tile-2 {
   font-size: 14px;
@@ -1381,5 +1383,19 @@ input[type="number"] {
 /* New Add on */
 
 .login-footer{
-  color: blue;
+  color: white;
+}
+
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.download-icon {
+  animation: bounce 1s infinite;
 }

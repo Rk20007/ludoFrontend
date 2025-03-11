@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { getBalanceDetail } from "../../API/API";
 import AddIcon from "@mui/icons-material/Add";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const Navbar = ({ toggleDrawer }) => {
   const navigate = useNavigate();
@@ -11,6 +12,10 @@ const Navbar = ({ toggleDrawer }) => {
   const getData = async () => {
     const getReponse = await getBalanceDetail();
     setData(getReponse?.data);
+  };
+
+  const handleDownload = () => {
+    window.location.href = "https://ringludo.s3.ap-south-1.amazonaws.com/apk.apk";
   };
 
   useEffect(() => {
@@ -28,16 +33,29 @@ const Navbar = ({ toggleDrawer }) => {
               : navigate("/login")
           }
         >
-          <img src="/mainLogoRing.png" style={{ height: "3.4rem" }} />
+          <img src="/mainLogoRing.png" style={{ height: "5.0rem",paddingBottom:"10px" }} />
         </div>
         <div className="navbar-right-alignment">
           {!Cookies.get("verifyToken") ? (
+            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            {/* Animated Download Icon */}
+            <ArrowDownwardIcon
+              className="download-icon"
+              onClick={handleDownload}
+              style={{
+                fontSize: "28px",
+                color: "#ff6666",
+                cursor: "pointer",
+                height:"42px"
+              }}
+            />
             <button
               className="login-btn-primary"
               onClick={() => navigate("/login")}
             >
               Login
             </button>
+          </div>
           ) : (
             <div style={{ display: "flex", gap: "10px" }}>
               <button

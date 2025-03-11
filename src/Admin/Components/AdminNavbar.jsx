@@ -19,6 +19,19 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { Link, useLocation } from "react-router-dom";
+import {
+  Dashboard as DashboardIcon,
+  AttachMoney as AttachMoneyIcon,
+  ArrowDownward as ArrowDownwardIcon,
+  EmojiEvents as EmojiEventsIcon,
+    QrCodeScanner as QrCodeScannerIcon,
+  Percent as PercentIcon,
+  Notifications as NotificationsIcon,
+  Language as LanguageIcon,
+  VerifiedUser as VerifiedUserIcon,
+  PersonAdd as PersonAddIcon,
+  Group as GroupIcon,
+} from "@mui/icons-material";
 import Cookies from "js-cookie";
 
 const drawerWidth = 240;
@@ -170,112 +183,80 @@ export default function AdminNavbar() {
           </DrawerHeader>
           <Divider />
           <List>
-            {[
-              { text: "Dashboard", path: "/admin/secure/home", isShow: true },
-              {
-                text: "Recharge",
-                path: "/admin/secure/recharge",
-                isShow: true,
-              },
-              {
-                text: "Withdraw",
-                path: "/admin/secure/withdraw",
-                isShow:
-                  localStorage.getItem("userRole") === "superAdmin"
-                    ? true
-                    : false,
-              },
-              {
-                text: "Tournaments",
-                path: "/admin/secure/tournaments",
-                isShow: true,
-              },
-              {
-                text: "Update QR Code",
-                path: "/admin/secure/update-qr",
-                isShow:
-                  localStorage.getItem("userRole") === "superAdmin"
-                    ? true
-                    : false,
-              },
-              {
-                text: "Set Percentage",
-                path: "/admin/secure/set-percentage",
-                isShow:
-                  localStorage.getItem("userRole") === "superAdmin"
-                    ? true
-                    : false,
-              },
-              {
-                text: "Notifications",
-                path: "/admin/secure/notifications",
-                isShow:
-                  localStorage.getItem("userRole") === "superAdmin"
-                    ? true
-                    : false,
-              },
-              {
-                text: "Social Media Links",
-                path: "/admin/secure/socialMedia",
-                isShow:
-                  localStorage.getItem("userRole") === "superAdmin"
-                    ? true
-                    : false,
-              },
-              {
-                text: "KYC Verification",
-                path: "/admin/secure/kyc",
-                isShow: true,
-              },
-              {
-                text: "Add Admin Account",
-                path: "/admin/secure/signup",
-                isShow:
-                  localStorage.getItem("userRole") === "superAdmin"
-                    ? true
-                    : false,
-              },
-              {
-                text: "User Management",
-                path: "/admin/secure/user-management",
-                isShow:
-                  localStorage.getItem("userRole") === "superAdmin"
-                    ? true
-                    : false,
-              },
-            ].map((item, index) => (
-              <ListItem
-                key={item.text}
-                disablePadding
-                sx={{ display: `${item.isShow ? "block" : "none"}` }}
-              >
-                <ListItemButton
-                  component={Link}
-                  to={item.path}
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? "initial" : "center",
-                    px: 2.5,
-                  }}
-                  onClick={() => setOpen(false)}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : "auto",
-                      justifyContent: "center",
-                    }}
-                  >
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={item.text}
-                    sx={{ opacity: open ? 1 : 0 }}
-                  />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
+  {[
+    { text: "Dashboard", path: "/admin/secure/home", isShow: true, icon: <DashboardIcon /> },
+    { text: "Recharge", path: "/admin/secure/recharge", isShow: true, icon: <AttachMoneyIcon /> },
+    {
+      text: "Withdraw",
+      path: "/admin/secure/withdraw",
+      isShow: localStorage.getItem("userRole") === "superAdmin" ? true : false,
+      icon: <ArrowDownwardIcon />
+    },
+    { text: "Matches", path: "/admin/secure/tournaments", isShow: true, icon: <EmojiEventsIcon /> },
+    {
+      text: "Update QR Code",
+      path: "/admin/secure/update-qr",
+      isShow: localStorage.getItem("userRole") === "superAdmin" ? true : false,
+      icon: <QrCodeScannerIcon />
+    },
+    {
+      text: "Set Percentage",
+      path: "/admin/secure/set-percentage",
+      isShow: localStorage.getItem("userRole") === "superAdmin" ? true : false,
+      icon: <PercentIcon />
+    },
+    {
+      text: "Notifications",
+      path: "/admin/secure/notifications",
+      isShow: localStorage.getItem("userRole") === "superAdmin" ? true : false,
+      icon: <NotificationsIcon />
+    },
+    {
+      text: "Social Media Links",
+      path: "/admin/secure/socialMedia",
+      isShow: localStorage.getItem("userRole") === "superAdmin" ? true : false,
+      icon: <LanguageIcon />
+    },
+    { text: "KYC Verification", path: "/admin/secure/kyc", isShow: true, icon: <VerifiedUserIcon /> },
+    {
+      text: "Add Admin Account",
+      path: "/admin/secure/signup",
+      isShow: localStorage.getItem("userRole") === "superAdmin" ? true : false,
+      icon: <PersonAddIcon />
+    },
+    {
+      text: "User List",
+      path: "/admin/secure/user-management",
+      isShow: localStorage.getItem("userRole") === "superAdmin" ? true : false,
+      icon: <GroupIcon />
+    }
+  ].map((item, index) => (
+    <ListItem key={item.text} disablePadding sx={{ display: `${item.isShow ? "block" : "none"}` }}>
+      <ListItemButton
+        component={Link}
+        to={item.path}
+        sx={{
+          minHeight: 48,
+          justifyContent: open ? "initial" : "center",
+          px: 2.5
+        }}
+        onClick={() => setOpen(false)}
+      >
+        <ListItemIcon
+          sx={{
+            minWidth: 0,
+            mr: open ? 3 : "auto",
+            justifyContent: "center"
+          }}
+        >
+          {item.icon}
+        </ListItemIcon>
+        <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+      </ListItemButton>
+    </ListItem>
+  ))}
+</List>
+
           <Divider />
         </Drawer>
       )}
