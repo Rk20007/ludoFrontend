@@ -36,20 +36,11 @@ const Navbar = ({ toggleDrawer }) => {
 <img 
   src="/mainLogoRing.png" 
   style={{ 
-    height: "2.5rem",
+    height: "3.5rem",
     paddingBottom: "5px",
   }} 
 />
-<ArrowDownwardIcon
-              className="download-icon"
-              onClick={handleDownload}
-              style={{
-                fontSize: "28px",
-                color: "#ff6666",
-                cursor: "pointer",
-                height:"32px",
-              }}
-            />
+
         </div>
         <div className="navbar-right-alignment">
           {!Cookies.get("verifyToken") ? (
@@ -75,7 +66,7 @@ const Navbar = ({ toggleDrawer }) => {
             </button>
           </div>
           ) : (
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div style={{ display: "flex", gap: "8px" }}>
               <button
                 className="login-btn-primary"
                 style={{
