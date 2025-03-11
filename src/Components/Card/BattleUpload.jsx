@@ -96,20 +96,41 @@ const BattleUpload = ({ id, status, isTrue, data }) => {
               {data?.roomNo && (
                 <FormControlLabel
                   value="WON"
-                  control={<Radio />}
+                  control={<Radio
+                    sx={{
+                      color: "white", // Default color white
+                      "&.Mui-checked": {
+                        color: "white", // Checked color white
+                      },
+                    }}
+                  />}
                   label="I WON"
                 />
               )}
               {data?.roomNo && (
                 <FormControlLabel
                   value="LOSS"
-                  control={<Radio />}
+                  control={<Radio
+                    sx={{
+                      color: "white", // Default color white
+                      "&.Mui-checked": {
+                        color: "white", // Checked color white
+                      },
+                    }}
+                  />}
                   label="I LOST"
                 />
               )}
               <FormControlLabel
                 value="CANCELLED"
-                control={<Radio />}
+                control={<Radio
+                  sx={{
+                    color: "white", // Default color white
+                    "&.Mui-checked": {
+                      color: "white", // Checked color white
+                    },
+                  }}
+                />}
                 label="CANCEL"
               />
             </RadioGroup>
