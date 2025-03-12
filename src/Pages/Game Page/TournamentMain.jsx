@@ -109,7 +109,7 @@ const TournamentMain = () => {
       {/* WhatsApp Floating Button */}
      {/* WhatsApp Floating Button */}
 <a
-  href="https://wa.me/918395907209"
+  href="https://wa.me/917099986254"
   target="_blank"
   rel="noopener noreferrer"
   className="whatsapp-float"
