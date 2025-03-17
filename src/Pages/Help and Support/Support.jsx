@@ -60,7 +60,7 @@ const Support = () => {
       <div className="support-container-address">
         <div className="support-container-address-title">Address:</div>
         <div className="support-container-address-desc">
-          5RR7+HMJ, Alwar, Mega Highway, Bhiwadi, Rajasthan 301019
+          Shubhash Chowk,gurgoan, 122001
         </div>
       </div>
     </main>

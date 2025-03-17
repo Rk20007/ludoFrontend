@@ -39,93 +39,105 @@ const WithdrawMain = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
+
+    // Check last withdrawal time from localStorage
+    const lastWithdrawalTime = localStorage.getItem("lastWithdrawalTime");
+    const currentTime = new Date().getTime();
+
+    if (lastWithdrawalTime && currentTime - lastWithdrawalTime < 2 * 60 * 60 * 1000) {
+        toast.error("You can withdraw only after 2 hours of the last transaction.");
+        setLoading(false);
+        return;
+    }
+
     if (payload.mobilenumber.length !== 10) {
-      toast.error("Please enter a valid mobile number");
-      setLoading(false);
-      return;
+        toast.error("Please enter a valid mobile number");
+        setLoading(false);
+        return;
     }
     if (
-      payload.name === "" ||
-      payload.mobilenumber === "" ||
-      payload.amount === ""
+        payload.name === "" ||
+        payload.mobilenumber === "" ||
+        payload.amount === ""
     ) {
-      toast.error("Please fill all the fields");
-      setLoading(false);
-      return;
+        toast.error("Please fill all the fields");
+        setLoading(false);
+        return;
     } else {
-      if (value.bank) {
-        if (!payload.bankName || !payload.accoountNumber || !payload.ISFCode) {
-          toast.error("Please fill all the fields");
-          setLoading(false);
-          return;
-        }
-        const payData = {
-          amount: payload.amount,
-          type: "withdraw",
-          paymentMethod: "bankAccount",
-          bankAccountDetails: {
-            bankName: payload.bankName,
-            accountNumber: payload.accoountNumber,
-            ifscCode: payload.ISFCode,
-          },
-          userDetails: {
-            name: payload.name,
-            mobileNo: payload.mobilenumber,
-          },
-        };
+        if (value.bank) {
+            if (!payload.bankName || !payload.accoountNumber || !payload.ISFCode) {
+                toast.error("Please fill all the fields");
+                setLoading(false);
+                return;
+            }
+            const payData = {
+                amount: payload.amount,
+                type: "withdraw",
+                paymentMethod: "bankAccount",
+                bankAccountDetails: {
+                    bankName: payload.bankName,
+                    accountNumber: payload.accoountNumber,
+                    ifscCode: payload.ISFCode,
+                },
+                userDetails: {
+                    name: payload.name,
+                    mobileNo: payload.mobilenumber,
+                },
+            };
 
-        const response = await withdrawAPI(payData);
-        if (response?.status === 400 || response?.data?.status === 400) {
-          toast.error(response?.response?.data?.message);
-          setLoading(false);
-          return;
-        } else {
-          const response = await withdrawAPI(payData);
-          if (
-            response.data.statusCode === 201 ||
-            response.data.statusCode === 200
-          ) {
-            toast.success(response.data.message);
-            navigate("/transaction-history");
-          }
-        }
-        setLoading(false);
-      } else if (value.upi) {
-        if (!payload.upiID) {
-          toast.error("Please enter upi id");
-          setLoading(false);
-          return;
-        }
-        const payData = {
-          amount: payload.amount,
-          type: "withdraw",
-          paymentMethod: "upi",
-          upiId: payload.upiID,
-          userDetails: {
-            name: payload.name,
-            mobileNo: payload.mobilenumber,
-          },
-        };
+            const response = await withdrawAPI(payData);
+            if (response?.status === 400 || response?.data?.status === 400) {
+                toast.error(response?.response?.data?.message);
+                setLoading(false);
+                return;
+            } else {
+                if (
+                    response.data.statusCode === 201 ||
+                    response.data.statusCode === 200
+                ) {
+                    toast.success(response.data.message);
+                    localStorage.setItem("lastWithdrawalTime", currentTime); // ✅ Save withdrawal time
+                    navigate("/transaction-history");
+                }
+            }
+            setLoading(false);
+        } else if (value.upi) {
+            if (!payload.upiID) {
+                toast.error("Please enter upi id");
+                setLoading(false);
+                return;
+            }
+            const payData = {
+                amount: payload.amount,
+                type: "withdraw",
+                paymentMethod: "upi",
+                upiId: payload.upiID,
+                userDetails: {
+                    name: payload.name,
+                    mobileNo: payload.mobilenumber,
+                },
+            };
 
-        const response = await withdrawAPI(payData);
-        if (response?.status === 400 || response?.data?.status === 400) {
-          toast.error(response?.response?.data?.message);
-          setLoading(false);
-          return;
-        } else {
-          const response = await withdrawAPI(payData);
-          if (
-            response.data.statusCode === 201 ||
-            response.data.statusCode === 200
-          ) {
-            toast.success(response.data.message);
-            navigate("/transaction-history");
-          }
+            const response = await withdrawAPI(payData);
+            if (response?.status === 400 || response?.data?.status === 400) {
+                toast.error(response?.response?.data?.message);
+                setLoading(false);
+                return;
+            } else {
+                if (
+                    response.data.statusCode === 201 ||
+                    response.data.statusCode === 200
+                ) {
+                    toast.success(response.data.message);
+                    localStorage.setItem("lastWithdrawalTime", currentTime); // ✅ Save withdrawal time
+                    navigate("/transaction-history");
+                }
+            }
+            setLoading(false);
         }
-        setLoading(false);
-      }
     }
-  };
+};
+
 
   return (
     <section className="addBank-section">
