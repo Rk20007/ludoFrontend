@@ -86,6 +86,8 @@ const WithdrawMain = () => {
             };
 
             const response = await withdrawAPI(payData);
+            console.log("response",response);
+            
             if (response?.status === 400 || response?.data?.status === 400) {
                 toast.error(response?.response?.data?.message);
                 setLoading(false);
@@ -97,6 +99,7 @@ const WithdrawMain = () => {
                 ) {
                     toast.success(response.data.message);
                     localStorage.setItem("lastWithdrawalTime", currentTime); // ✅ Save withdrawal time
+
                     navigate("/transaction-history");
                 }
             }

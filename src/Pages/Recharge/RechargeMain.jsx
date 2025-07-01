@@ -10,7 +10,7 @@ const RechargeMain = () => {
     setAmount(event.target.value);
   };
   const handleAdd = () => {
-    if(amount < 50) {
+    if(amount < 10) {
       toast.error("Amount should be greater than 50");
       return;
     }

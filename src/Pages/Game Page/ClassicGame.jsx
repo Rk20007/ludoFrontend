@@ -195,8 +195,8 @@ const ClassicGame = () => {
 
   const sendData = async () => {
     setloading(false);
-    if (amountData < 50) {
-      toast.error("Amount should be greater than 50");
+    if (amountData < 10) {
+      toast.error("Amount should be greater than 10");
       setloading(true);
       return;
     }
