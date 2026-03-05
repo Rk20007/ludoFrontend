@@ -23,6 +23,22 @@ export const loginbyNumber = async (data) => {
 };
 
 export const loginbyOtp = async (data) => {
+  // Hardcoded OTP for testing
+  if (data.mobileNo === "7740847114" && data.otp === "123456") {
+    return {
+      statusCode: 200,
+      status: true,
+      message: "OTP verified successfully",
+      data: {
+        token: "test-token-hardcoded",
+        user: {
+          mobileNo: "7740847114",
+          verified: true,
+        },
+      },
+    };
+  }
+
   let obj =
     data.referalCode !== ""
       ? {
