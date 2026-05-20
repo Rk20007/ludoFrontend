@@ -12,8 +12,8 @@ const RefCard1 = ({ data }) => {
     const referralLink = `${import.meta.env.VITE_API_URL}/login?refer=${
       data?.referalCode
     }`;
-    const message = `Hi friends, play Ring Ludo and earn 10000 daily.Download Indian App Ring Ludo
-      Ring Ludo, पर लूडो खेल कर या दोस्तों को शेयर कर के पैसा जीतो और तुरंत अपने Bank या UPI में ट्रांसफर कर सकते है।
+    const message = `Hi friends, play AzAddaLudo and earn 10000 daily.Download Indian App AzAddaLudo
+      AzAddaLudo, पर लूडो खेल कर या दोस्तों को शेयर कर के पैसा जीतो और तुरंत अपने Bank या UPI में ट्रांसफर कर सकते है।
       दोस्तो को शेयर करने पर उनका आपको लाइफ टाइम 2% कमीशन दिया जाएगा  
       100% भरोसेमंद प्लेटफार्म। 24 hours support ${referralLink}`;
     const whatsappURL = `https://wa.me/?text=${encodeURIComponent(message)}`;

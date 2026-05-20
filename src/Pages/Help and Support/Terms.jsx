@@ -19,7 +19,7 @@ const Terms = () => {
         Privacy Policy of the App (hereinafter referred to as &ldquo;Privacy
         Policy&rdquo;).These Terms of Service (the &ldquo;Terms&rdquo;) are a
         legal and binding agreement between users (&ldquo;Users&rdquo;) andStar
-        (referred to as the &ldquo;Ring Ludo&rdquo;), in relation to all games
+        (referred to as the &ldquo;AzAddaLudo&rdquo;), in relation to all games
         and applications made available by Star(jointly and interchangeably
         referred to as the &ldquo;Services&rdquo;), and any information, text,
         graphics, video, sound, pictures, and any other materials appearing,
@@ -151,9 +151,9 @@ const Terms = () => {
         2.2. The Services may include advertisements, which may be targeted to
         the Content or information on the Services, queries made through the
         Services, or any other information. The types and extent of advertising
-        by Ring Ludo on the Services are subject to change. In consideration for
-        Ring Ludo granting you access to and use of the Services, you agree that
-        Ring Ludo and its third party providers and partners may place such
+        by AzAddaLudo on the Services are subject to change. In consideration for
+        AzAddaLudo granting you access to and use of the Services, you agree that
+        AzAddaLudo and its third party providers and partners may place such
         advertising on the Services or in connection with the display of Content
         or information from the Services whether submitted by you or others.
       </p>
@@ -174,7 +174,7 @@ const Terms = () => {
       <p className="privacy-container-text">3. Content</p>
 
       <p className="privacy-container-text">
-        3.1. Subject to your compliance with these Terms, Ring Ludo grants you a
+        3.1. Subject to your compliance with these Terms, AzAddaLudo grants you a
         limited, non-exclusive, non-transferable, non-sublicensable license to
         access and view the Content solely in connection with your permitted use
         of the Services and solely for your personal and non-commercial

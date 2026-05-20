@@ -1,139 +1,166 @@
-import { Button, TextField, Backdrop, CircularProgress } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { handleUpload } from "../../util/Upload";
+import {
+  Backdrop,
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-import { adminGetSetting, rechargeAPI } from "../../API/API";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  readPaymentReturnFromSearch,
+  resolveQrImageSrc,
+} from "../../util/paymentGateway";
+import { startGatewayDeposit } from "../../util/startGatewayDeposit";
+
+const gatewayEnabled = import.meta.env.VITE_USE_GATEWAY_RECHARGE !== "false";
 
 const RechargeSubmit = () => {
-  const [loading, setLoading] = useState(false);
-  const [uploading, setUploading] = useState(false); // Added state for file upload tracking
   const navigate = useNavigate();
-  const amount = new URLSearchParams(window.location.search).get("amount");
+  const location = useLocation();
+  const amountParam = new URLSearchParams(window.location.search).get("amount");
+  const amountNum = Number(amountParam);
 
-  const [payload, setPayload] = useState({
-    amount: amount,
-    type: "deposit",
-    screenShot: "",
-    utrNo: "",
-  });
-
-  const [data, setData] = useState({});
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => setOpen(false);
-
-  const handleProceed = async () => {
-    setLoading(true);
-    if (payload.utrNo.length !== 12) {
-      toast.error("Please enter a valid UTR Number");
-      setLoading(false);
-      return;
-    }
-    if (!payload.utrNo || payload.screenShot === "") {
-      toast.error("Please fill all the fields");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      const getResponse = await rechargeAPI(payload);
-      if (getResponse.data.statusCode === 201) {
-        toast.success(getResponse.data.message);
-        navigate("/transaction-history");
-      } else {
-        toast.error("Something went wrong");
-      }
-    } catch (error) {
-      toast.error("Error processing request");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getData = async () => {
-    const response = await adminGetSetting();
-    setData(response.data.data);
-  };
+  const [booting, setBooting] = useState(false);
+  const [orderMeta, setOrderMeta] = useState(null);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const skipRemoteCreateRef = useRef(false);
 
   useEffect(() => {
-    getData();
-  }, []);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(data?.upiId);
-    toast.success("UPI Id Copied");
-  };
-
-  const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setUploading(true); // Show backdrop
-    setOpen(true);
-    try {
-      const uploadedFileUrl = await handleUpload(file);
-      setPayload((prev) => ({ ...prev, screenShot: uploadedFileUrl }));
-    } catch (error) {
-      toast.error("File upload failed");
-    } finally {
-      setUploading(false);
-      setOpen(false); // Hide backdrop after upload
+    const ret = readPaymentReturnFromSearch(window.location.search);
+    if (ret.success) {
+      setSuccessOpen(true);
+      return undefined;
     }
+    if (ret.failed) {
+      toast.error("Payment failed or was cancelled");
+      navigate("/addcash", { replace: true });
+      return undefined;
+    }
+
+    if (location.state?.orderMeta) {
+      setOrderMeta(location.state.orderMeta);
+      skipRemoteCreateRef.current = true;
+      navigate(`${location.pathname}${location.search}`, { replace: true });
+      return undefined;
+    }
+
+    if (skipRemoteCreateRef.current) {
+      return undefined;
+    }
+
+    if (!gatewayEnabled) {
+      toast.error("Online payment is not enabled");
+      navigate("/addcash", { replace: true });
+      return undefined;
+    }
+
+    if (!amountParam || Number.isNaN(amountNum) || amountNum < 1) {
+      toast.error("Amount should be at least ₹50");
+      navigate("/addcash", { replace: true });
+      return undefined;
+    }
+
+    let cancelled = false;
+
+    const run = async () => {
+      setBooting(true);
+      const { payUrl, meta, error } = await startGatewayDeposit(amountNum);
+      if (cancelled) return;
+
+      if (error) {
+        toast.error(error);
+        setBooting(false);
+        navigate("/addcash", { replace: true });
+        return;
+      }
+
+      if (payUrl) {
+        setBooting(false);
+        toast.success("Redirecting to secure payment…");
+        window.location.assign(payUrl);
+        return;
+      }
+
+      setOrderMeta(meta);
+      setBooting(false);
+    };
+
+    run();
+    return () => {
+      cancelled = true;
+    };
+  }, [amountParam, amountNum, navigate, location.key]);
+
+  const qrSrc = orderMeta ? resolveQrImageSrc(orderMeta.qrImage) : null;
+
+  const handleSuccessClose = () => {
+    setSuccessOpen(false);
+    navigate("/wallet", { replace: true });
   };
 
   return (
     <>
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
+        open={booting}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
 
-      <div className="recharge-submit-main">
-        <main className="recharge-payment-main">
-          <img src={data?.upiQrCode} style={{ width: "50%" }} alt="QR Code" />
-        </main>
-        <div className="recharge-payment-main3">OR</div>
-        <main>
-          <div className="recharge-payment-main4">
-            <div>{data?.upiId}</div>
-            <div onClick={handleCopy}>Copy</div>
-          </div>
-        </main>
-        <main className="recharge-payment-main-p2">
-          <div className="recharge-payment-main5">
-            Total Amount to be Paid is ₹{amount}
-          </div>
-          <div className="kyc-input-file">
-            <label>Payment Proof</label>
-            <input type="file" onChange={handleFileUpload} />
-          </div>
-          <TextField
-            id="outlined-basic"
-            label="Enter Ref or Transaction ID"
-            variant="outlined"
-            fullWidth
-            onChange={(e) =>
-              setPayload((prev) => ({ ...prev, utrNo: e.target.value }))
-            }
-          />
-          {!loading ? (
-            <Button
-              variant="contained"
-              onClick={handleProceed}
-              disabled={uploading}
-            >
-              Proceed
-            </Button>
-          ) : (
-            <Button variant="contained" disabled>
-              Please wait...
-            </Button>
+      <Dialog open={successOpen} onClose={handleSuccessClose} disableEscapeKeyDown={false}>
+        <DialogTitle>Payment successful</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1">
+            Your wallet has been updated. You can continue from your wallet or home.
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleSuccessClose} fullWidth sx={{ m: 1 }}>
+            Go to wallet
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {!booting && orderMeta && (
+        <Box sx={{ px: 2, py: 3, maxWidth: 420, mx: "auto" }}>
+          <Typography variant="h6" gutterBottom align="center">
+            Complete payment
+          </Typography>
+          <Typography variant="body2" color="text.secondary" align="center" sx={{ mb: 2 }}>
+            Pay ₹{amountParam} using the options below.
+          </Typography>
+          {qrSrc && (
+            <Box sx={{ textAlign: "center", my: 2 }}>
+              <img src={qrSrc} style={{ maxWidth: "100%", height: "auto" }} alt="Payment QR" />
+            </Box>
           )}
-        </main>
-      </div>
+          {orderMeta.upiLink && (
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+              <Button variant="contained" onClick={() => (window.location.href = orderMeta.upiLink)}>
+                Open UPI app
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  navigator.clipboard.writeText(orderMeta.upiLink);
+                  toast.success("UPI link copied");
+                }}
+              >
+                Copy UPI link
+              </Button>
+            </Box>
+          )}
+          <Button sx={{ mt: 2 }} fullWidth onClick={() => navigate("/addcash")}>
+            Back to add cash
+          </Button>
+        </Box>
+      )}
     </>
   );
 };

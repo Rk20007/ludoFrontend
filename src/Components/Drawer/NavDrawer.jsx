@@ -153,12 +153,12 @@ export default function NavDrawer({ isOpen, toggleDrawer }) {
           }}
         >
           <img
-            src="/mainLogoRing.png"
+            src="/azadda.png"
             alt="Logo"
             style={{
               height: "2.8rem",
             }}
-          />
+          />bh
         </Box>
         <IconButton
           onClick={toggleDrawer(false)}

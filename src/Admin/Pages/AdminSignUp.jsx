@@ -145,7 +145,7 @@ export default function AdminSignUp() {
         <Box mt={8}>
           <Typography variant="body2" color="textSecondary" align="center">
             {"Copyright © "}
-            <Link color="inherit">Ring Ludo</Link> {new Date().getFullYear()}
+            <Link color="inherit">AzAddaLudo</Link> {new Date().getFullYear()}
             {"."}
           </Typography>
         </Box>

@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { getBalanceDetail } from "../../API/API";
-import AddIcon from "@mui/icons-material/Add";
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
 const Navbar = ({ toggleDrawer }) => {
   const navigate = useNavigate();
@@ -24,136 +22,144 @@ const Navbar = ({ toggleDrawer }) => {
 
   return (
     <>
+      <style>{`
+        /* ── Image logo ── */
+        .logo-img {
+          height: 38px;
+          width: auto;
+          object-fit: contain;
+          cursor: pointer;
+          user-select: none;
+          display: block;
+          filter: drop-shadow(0 0 4px rgba(255, 80, 80, 0.4));
+          transition: filter 0.3s ease;
+        }
+
+        .logo-img:hover {
+          filter: drop-shadow(0 0 8px rgba(255, 80, 80, 0.85));
+        }
+
+        /* ── Wallet / Earning buttons ── */
+        .wallet-btn {
+          display: flex;
+          gap: 7px;
+          font-size: 10px;
+          width: 5.6rem;
+          padding: 5px 9px;
+          align-items: center;
+          overflow: hidden;
+          border-radius: 30px;
+          cursor: pointer;
+          position: relative;
+          background: rgba(255, 255, 255, 0.12);
+          backdrop-filter: blur(6px);
+          -webkit-backdrop-filter: blur(6px);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+          transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .wallet-btn:hover {
+          background: rgba(255, 255, 255, 0.2);
+          box-shadow: 0 4px 14px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        .wallet-btn .btn-icon img {
+          height: 1.5em;
+          filter: brightness(1.3);
+        }
+
+        .wallet-btn .btn-label {
+          display: flex;
+          flex-direction: column;
+          gap: 1px;
+          text-align: start;
+        }
+
+        .wallet-btn .btn-label .btn-title {
+          color: rgba(255,255,255,0.7);
+          font-size: 9px;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+
+        .wallet-btn .btn-label .btn-value {
+          color: #ffffff;
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.3px;
+        }
+
+        /* Colored left-border accent per button */
+        .wallet-btn.cash-btn {
+          border: 1px solid rgba(255, 107, 107, 0.5);
+          border-left: 3px solid #ff6b6b;
+        }
+
+        .wallet-btn.earn-btn {
+          border: 1px solid rgba(255, 209, 102, 0.4);
+          border-left: 3px solid #ffd166;
+        }
+
+        .wallet-btn.earn-btn .btn-label .btn-value {
+          color: #ffd166;
+        }
+      `}</style>
+
       <main className="navbar">
-        <div
-          className="navbar-logo"
-          onClick={() =>
-            Cookies.get("verifyToken")
-              ? navigate("/tournaments")
-              : navigate("/login")
-          }
-        >
-<img 
-  src="/mainLogoRing.png" 
-  style={{ 
-    height: "2.5rem",
-    paddingBottom: "5px",
-  }} 
-/>
-<ArrowDownwardIcon
-              className="download-icon"
-              onClick={handleDownload}
-              style={{
-                fontSize: "28px",
-                color: "#ff6666",
-                cursor: "pointer",
-                height:"32px",
-              }}
-            />
+        {/* ── LEFT: Logo ── */}
+        <div className="navbar-logo" style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <img
+            src="/azadda.png"
+            alt="AzAdda Ludo"
+            className="logo-img"
+            onClick={() =>
+              Cookies.get("verifyToken") ? navigate("/tournaments") : navigate("/login")
+            }
+          />
         </div>
+
+        {/* ── RIGHT ── */}
         <div className="navbar-right-alignment">
           {!Cookies.get("verifyToken") ? (
             <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-
-            {/* Animated Download Icon */}
-            <ArrowDownwardIcon
-              className="download-icon"
-              onClick={handleDownload}
-              style={{
-                fontSize: "28px",
-                color: "#ff6666",
-                cursor: "pointer",
-                height:"42px"
-              }}
-            />
-           
-            <button
-              className="login-btn-primary"
-              onClick={() => navigate("/login")}
-            >
-              Login
-            </button>
-          </div>
+              <button className="login-btn-primary" onClick={() => navigate("/login")}>
+                Login
+              </button>
+            </div>
           ) : (
-            <div style={{ display: "flex", gap: "10px" }}>
-              <button
-                className="login-btn-primary"
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "10px",
-                  width: "5.5rem",
-                  paddingLeft: "9px",
-                  paddingRight: "9px",
-                  alignItems: "center",
-                  overflow: "hidden",
-                  color:"white",
-                  borderRadius:"30px",
-                  background: "linear-gradient(45deg,#c80001,#c80001,#0000,#fcfbfbb3)", // Light Red to Black
-
-
-                }}
-                onClick={() => navigate("/wallet")}
-              >
-                <div>
-                  <img src="/rupee.png" style={{ height: "1.6em" }} />
+            <div style={{ display: "flex", gap: "8px" }}>
+              {/* Cash / Wallet */}
+              <button className="wallet-btn cash-btn" onClick={() => navigate("/wallet")}>
+                <div className="btn-icon">
+                  <img src="/rupee.png" alt="rupee" />
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "2px",
-                    textAlign: "start",
-                  }}
-                >
-                  <div style={{ color: "white" }}>Cash</div>
-                  <div>
-                    {(data?.totalBalance + data?.cashWon || 0).toString()
-                      .length > 10
-                      ? (data?.totalBalance + data?.cashWon || 0)
-                          .toString()
-                          .substring(0, 6) + "..."
+                <div className="btn-label">
+                  <span className="btn-title">Cash</span>
+                  <span className="btn-value">
+                    {(data?.totalBalance + data?.cashWon || 0).toString().length > 7
+                      ? (data?.totalBalance + data?.cashWon || 0).toString().substring(0, 5) + "…"
                       : data?.totalBalance + data?.cashWon || 0}
-                  </div>
+                  </span>
                 </div>
               </button>
-              <button
-                className="login-btn-primary"
-                onClick={() => navigate("/refer-earn")}
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  fontSize: "10px",
-                  alignItems: "center",
-                  width: "5.5rem",
-                  paddingLeft: "9px",
-                  paddingRight: "9px",
-                  overflow: "hidden",
-                  borderRadius:"30px",
-                  color:"white",
-                  background: "linear-gradient(45deg,#c80001,#c80001,#0000,#fcfbfbb3)", // Light Red to Black
 
-                }}
-              >
-                <div>
-                  <img src="/bag.png" style={{ height: "1.6em" }} />
+              {/* Earning */}
+              <button className="wallet-btn earn-btn" onClick={() => navigate("/refer-earn")}>
+                <div className="btn-icon">
+                  <img src="/bag.png" alt="bag" />
                 </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "2px",
-                    textAlign: "start",
-                  }}
-                >
-                  <div style={{ color: "white" }}>Earning</div>
-                  <div>{data?.referralEarning || 0}</div>
+                <div className="btn-label">
+                  <span className="btn-title">Earning</span>
+                  <span className="btn-value">{data?.referralEarning || 0}</span>
                 </div>
               </button>
             </div>
           )}
+
           <img
             src="/menu.svg"
+            alt="menu"
             style={{ cursor: "pointer" }}
             onClick={toggleDrawer(true)}
           />

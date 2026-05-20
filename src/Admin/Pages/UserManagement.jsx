@@ -120,9 +120,72 @@ export default function UserManagement() {
     );
   });
 
+  const tableScrollRef = React.useRef(null);
+  const bottomScrollRef = React.useRef(null);
+  const bottomInnerRef = React.useRef(null);
+  const scrollSyncLock = React.useRef(false);
+  const [hasHorizontalScroll, setHasHorizontalScroll] = React.useState(false);
+
+  const updateHorizontalScrollMetrics = React.useCallback(() => {
+    const el = tableScrollRef.current;
+    if (!el) return;
+    const need = el.scrollWidth > el.clientWidth + 1;
+    setHasHorizontalScroll(need);
+    if (bottomInnerRef.current) {
+      bottomInnerRef.current.style.minWidth = `${el.scrollWidth}px`;
+    }
+  }, []);
+
+  React.useLayoutEffect(() => {
+    updateHorizontalScrollMetrics();
+  }, [filteredData, data, updateHorizontalScrollMetrics]);
+
+  React.useEffect(() => {
+    const onResize = () => updateHorizontalScrollMetrics();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [updateHorizontalScrollMetrics]);
+
+  React.useEffect(() => {
+    const el = tableScrollRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => updateHorizontalScrollMetrics());
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [updateHorizontalScrollMetrics]);
+
+  const onTableContainerScroll = React.useCallback((e) => {
+    if (scrollSyncLock.current) return;
+    scrollSyncLock.current = true;
+    const left = e.currentTarget.scrollLeft;
+    if (bottomScrollRef.current) {
+      bottomScrollRef.current.scrollLeft = left;
+    }
+    scrollSyncLock.current = false;
+  }, []);
+
+  const onBottomScrollStrip = React.useCallback((e) => {
+    if (scrollSyncLock.current) return;
+    scrollSyncLock.current = true;
+    const left = e.currentTarget.scrollLeft;
+    if (tableScrollRef.current) {
+      tableScrollRef.current.scrollLeft = left;
+    }
+    scrollSyncLock.current = false;
+  }, []);
+
   return (
-    <Box sx={{ padding: "20px", height: "calc(100vh - 100px)" }}>
-      <Typography variant="h4" gutterBottom>
+    <Box
+      sx={{
+        padding: "20px",
+        height: "calc(100vh - 100px)",
+        display: "flex",
+        flexDirection: "column",
+        minHeight: 0,
+        boxSizing: "border-box",
+      }}
+    >
+      <Typography variant="h4" gutterBottom sx={{ flexShrink: 0 }}>
         User Management
       </Typography>
 
@@ -130,16 +193,35 @@ export default function UserManagement() {
         label="Search by Mobile Number, Name, or ID"
         variant="outlined"
         fullWidth
-        sx={{ marginBottom: "20px" }}
+        sx={{ marginBottom: "20px", flexShrink: 0 }}
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      <TableContainer
-        component={Paper}
-        style={{ maxHeight: "calc(100vh - 350px)", overflowY: "auto" }}
+      <Paper
+        sx={{
+          flex: 1,
+          minHeight: 0,
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+        }}
       >
-        <Table aria-label="simple table" stickyHeader>
+        <TableContainer
+          component={Box}
+          ref={tableScrollRef}
+          onScroll={onTableContainerScroll}
+          sx={{
+            flex: 1,
+            minHeight: 0,
+            overflow: "auto",
+          }}
+        >
+          <Table
+            aria-label="simple table"
+            stickyHeader
+            sx={{ minWidth: "max-content" }}
+          >
           <TableHead>
             <TableRow>
               <TableCell
@@ -259,8 +341,51 @@ export default function UserManagement() {
               </TableRow>
             )}
           </TableBody>
-        </Table>
-      </TableContainer>
+          </Table>
+        </TableContainer>
+
+        <Box
+          ref={bottomScrollRef}
+          onScroll={onBottomScrollStrip}
+          sx={{
+            flexShrink: 0,
+            overflowX: "auto",
+            overflowY: "hidden",
+            maxHeight: hasHorizontalScroll ? 18 : 0,
+            opacity: hasHorizontalScroll ? 1 : 0,
+            transition: "max-height 0.15s ease",
+            borderTop: hasHorizontalScroll ? "1px solid" : 0,
+            borderColor: "divider",
+            "&::-webkit-scrollbar": { height: 12 },
+          }}
+        >
+          <Box ref={bottomInnerRef} sx={{ height: 1, width: 1 }} aria-hidden />
+        </Box>
+      </Paper>
+
+      <Paper
+        elevation={4}
+        sx={{
+          flexShrink: 0,
+          mt: 2,
+          py: 1.5,
+          px: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          gap: 1,
+          borderRadius: 1,
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          Total users: {data.length}
+          {searchTerm.trim()
+            ? ` · Matching filter: ${filteredData.length}`
+            : null}
+        </Typography>
+      </Paper>
+
       <Dialog
         open={penalitySet.isSet}
         onClose={() => setPenalitySet({ ...penalitySet, isSet: false })}

@@ -10,7 +10,7 @@ const Privacy = () => {
       <div className="support-heading">Privacy Policy</div>
       <div className="privacy-container-text-intro">Introduction</div>
       <div className="privacy-container-text">
-        This document explains how Star (refered to as the Ring Ludo) collects,
+        This document explains how Star (refered to as the AzAddaLudo) collects,
         processes, stores and/or shares any personal data and/or information
         from users (jointly referred to as “Information”). By accessing and/or
         using the Services you consent the collection, transfer, manipulation,
@@ -25,30 +25,30 @@ const Privacy = () => {
       </div>
       <div className="privacy-container-text">The Information collected:</div>
       <div className="privacy-container-text">
-        Star(refered to as the Ring Ludo) and/or third parties, including but
+        Star(refered to as the AzAddaLudo) and/or third parties, including but
         not limited to business partners, advertising networks, analytics or
         search information providers, may collect and process the following data
         about you: information that you provide when you fill in forms when
         accessing and/or using the Services, or when you create an account
         within the Services; details of your use of the Services and the
         resources that you access; the correspondence between you and
-        Star(refered to as the Ring Ludo) and any interactions, or with other
+        Star(refered to as the AzAddaLudo) and any interactions, or with other
         users on the Service, the channels and/or any social media related; from
         third parties who hold data about you and who agree to share this data
         with us; and information collected via cookies and other similar
         technologies and/or other mechanisms, as explained further below.
       </div>
       <div className="privacy-container-text">
-        I. Cookies: Star(refered to as the Ring Ludo) uses cookies and other
+        I. Cookies: Star(refered to as the AzAddaLudo) uses cookies and other
         similar technologies in the Services. These technologies operate either
         by placing a small file which stores some information on your computer
         or mobile device; and/or by accessing information on your device.
-        STARVISTAR GAMING LLP(refered to as the Ring Ludo) uses cookies and
+        STARVISTAR GAMING LLP(refered to as the AzAddaLudo) uses cookies and
         similar technologies to recognize you and your device, for example by
         identifying your IP address; to allow the Services to interact with a
         third party social network or platform where you have chosen to allow
         such interaction; to allow payment processes when you submit payment
-        instructions; to enable Star (refered to as the Ring Ludo) and third
+        instructions; to enable Star (refered to as the AzAddaLudo) and third
         parties to provide you with more customized services; and to collect
         data such as your device’s model, operating system and screen size,
         other applications installed on your device, and information about how
@@ -61,16 +61,16 @@ const Privacy = () => {
         Services.
       </div>
       <div className="privacy-container-text">
-        I. Cookies: Star(refered to as the Ring Ludo) uses cookies and other
+        I. Cookies: Star(refered to as the AzAddaLudo) uses cookies and other
         similar technologies in the Services. These technologies operate either
         by placing a small file which stores some information on your computer
         or mobile device; and/or by accessing information on your device.
-        STARVISTAR GAMING LLP(refered to as the Ring Ludo) uses cookies and
+        STARVISTAR GAMING LLP(refered to as the AzAddaLudo) uses cookies and
         similar technologies to recognize you and your device, for example by
         identifying your IP address; to allow the Services to interact with a
         third party social network or platform where you have chosen to allow
         such interaction; to allow payment processes when you submit payment
-        instructions; to enable Star (refered to as the Ring Ludo) and third
+        instructions; to enable Star (refered to as the AzAddaLudo) and third
         parties to provide you with more customized services; and to collect
         data such as your device’s model, operating system and screen size,
         other applications installed on your device, and information about how
@@ -86,12 +86,12 @@ const Privacy = () => {
         III. Location Information: You may choose to publish your location in
         your Star profile. You may also tell your location when you enable your
         device to send such location information. Star(refered to as the
-        Ring Ludo) and/or third parties may use and store information about
+        AzAddaLudo) and/or third parties may use and store information about
         your location to provide special features, to deliver ads that relate
         your interests and/or to improve and customize the Services
       </div>
       <div className="privacy-container-text">
-        IV. Links: Star (refered to as the Ring Ludo)may keep track of how you
+        IV. Links: Star (refered to as the AzAddaLudo)may keep track of how you
         interact with links across the Services, including email notifications,
         third-party services, and client applications, by redirecting clicks or
         through other means.
@@ -107,13 +107,13 @@ const Privacy = () => {
       </div>
       <div className="privacy-container-text">
         VI. Payment information: If you make a purchase in the Services,
-        Star(refered to as the Ring Ludo) may collect the billing and financial
+        Star(refered to as the AzAddaLudo) may collect the billing and financial
         information necessary to process the charges; and/or do so on behalf of
         the relevant payment service providers. Purchases of third party
         services are subject to the policies applicable to such provider.
       </div>
       <div className="privacy-container-text">
-        VII. Third-party services: Star (refered to as the Ring Ludo) uses a
+        VII. Third-party services: Star (refered to as the AzAddaLudo) uses a
         variety of third-party services to help its provision of the Services,
         such as hosting and other services. These third-party service providers
         may collect information sent by your browser as part of a web page
@@ -129,7 +129,7 @@ const Privacy = () => {
         information, for example, your name and/or username, may be listed
         publicly on the Services, including on your profile page and in search
         results. You agree that STARVISTAR GAMING LLP Services(refered to as the
-        Ring Ludo) and/or third parties on its behalf and/or its partners may
+        AzAddaLudo) and/or third parties on its behalf and/or its partners may
         use the Information for the purposes of contacting you as part of
         customer support; to send you updates or information about the Services;
         managing your account and relationship with the Service and improving
@@ -141,11 +141,11 @@ const Privacy = () => {
         similar services for the purposes of research or business intelligence.
       </div>
       <div className="privacy-container-text">
-        Star(refered to as the Ring Ludo) will only share your data with third
+        Star(refered to as the AzAddaLudo) will only share your data with third
         parties according to the Privacy Policy, as reasonably necessary in
         order to provide the Services, for example, by providing Information to
         suppliers that STARVISTAR GAMING LLP Services(refered to as the
-        Ring Ludo)may use to fulfill the Services; where it is necessary to
+        AzAddaLudo)may use to fulfill the Services; where it is necessary to
         carry out your instructions, for example, to process a payment
         instruction your Information has to be provided to the payment
         processors; where your data is on an anonymous and aggregated basis,
@@ -157,8 +157,8 @@ const Privacy = () => {
         law or regulation; in order to comply with any legal obligation, or in
         order to enforce or apply the Terms, this Privacy Policy and/or any
         other agreement with you; or to protect the rights and/or property of
-        Star(refered to as the Ring Ludo) or third-party´s rights and/or
-        property. STARVISTAR GAMING LLP(refered to as the Ring Ludo) may share
+        Star(refered to as the AzAddaLudo) or third-party´s rights and/or
+        property. STARVISTAR GAMING LLP(refered to as the AzAddaLudo) may share
         or disclose your non-private information, such as public user profile
         information, public messages, e-mail, etc., or share or disclose your
         information in an anonymous or aggregated basis in a manner that does
@@ -171,12 +171,12 @@ const Privacy = () => {
         You may allow the Services to interact with any third party social
         network and/or platforms, such as Facebook, twitter, whatsApp and any
         other networks/platforms which will provide data about you to Star
-        (refered to as the Ring Ludo). Since any other applications or websites
+        (refered to as the AzAddaLudo). Since any other applications or websites
         different than the Services are owned by a third party, you must ensure
         that you read their terms of service and the applicable privacy
         policies. You understand that when you allow the Services to interact
         with any third party social network and/or platform, Star (refered to as
-        the Ring Ludo) may share data about you with your contacts and other
+        the AzAddaLudo) may share data about you with your contacts and other
         users of the Services and vice versa. This Data may include your name,
         profile picture, activity status, and information related to your use of
         the Services. You can change this by adjusting your settings with that
@@ -195,7 +195,7 @@ const Privacy = () => {
         https://myaccount.google.com/permissions?pli=1.
       </div>
       <div className="privacy-container-text">
-        Star(refered to as the Ring Ludo) may retain the Information for as
+        Star(refered to as the AzAddaLudo) may retain the Information for as
         long as is necessary to fulfill the purposes for which it was collected
         or as needed to provide the Services, even after you have discontinued
         or deleted any account, or after the end of the provision of the
@@ -204,18 +204,18 @@ const Privacy = () => {
         disputes between users, prevent fraud, or any other use.
       </div>
       <div className="privacy-container-text">
-        Star (refered to as the Ring Ludo)maintains appropriate technical and
+        Star (refered to as the AzAddaLudo)maintains appropriate technical and
         physical safeguards to protect Information against accidental or
         unlawful destruction or loss, alteration, unauthorized disclosures or
         access, and any other unlawful forms of processing of the data in its
-        possession. However, Star(refered to as the Ring Ludo) does not
+        possession. However, Star(refered to as the AzAddaLudo) does not
         guarantee that Information will not be accessed, disclosed, altered or
         destroyed by breach of any of the abovementioned safeguards. Information
         may be transferred to and/or stored at worldwide destinations.
-        Star(refered to as the Ring Ludo) takes all steps reasonably necessary
+        Star(refered to as the AzAddaLudo) takes all steps reasonably necessary
         to ensure that Information is treated securely and in accordance with
         this Privacy Policy. In the event that Star (refered to as the
-        Ring Ludo)is involved in a bankruptcy, merger, acquisition,
+        AzAddaLudo)is involved in a bankruptcy, merger, acquisition,
         reorganization or sale of assets, your information may be sold or
         transferred as part of that transaction. The undertakings in this
         Privacy Policy shall apply to the Information as transferred to the new
@@ -226,7 +226,7 @@ const Privacy = () => {
         understand that when you click on these links any data which you provide
         afterwards is subject to that third party's privacy policy and not to
         Star's. Consequently, STARVISTAR GAMING LLP Services(refered to as the
-        Ring Ludo)takes no responsibility for the content, safety or security
+        AzAddaLudo)takes no responsibility for the content, safety or security
         of any third party website. The Services are not directed to persons
         under legal age. Star does not knowingly collect any Information from
         children under legal age. If you become aware that a child under legal
@@ -235,24 +235,24 @@ const Privacy = () => {
         that any child has provided personal information without the essential
         legal guardian consent, please contact: . Irrespective of which country
         you reside in or supply information from, you authorize STARVISTAR
-        GAMING LLP Services(refered to as the Ring Ludo) to store and/or use
+        GAMING LLP Services(refered to as the AzAddaLudo) to store and/or use
         the Information according to this Privacy Policy in any country where
-        Star(refered to as the Ring Ludo) may operate.
+        Star(refered to as the AzAddaLudo) may operate.
       </div>
       <div className="privacy-container-text">
         Notwithstanding anything to the contrary in this Policy, STARVISTAR
-        GAMING LLP (refered to as the Ring Ludo) may preserve or disclose your
+        GAMING LLP (refered to as the AzAddaLudo) may preserve or disclose your
         information to the extent reasonably necessary to comply with a law,
         regulation or legal request; to protect the safety of any person; to
         address fraud, security or technical issues; or to protect Star's
-        (refered to as the Ring Ludo)rights or property. However, nothing in
+        (refered to as the AzAddaLudo)rights or property. However, nothing in
         this Privacy Policy is intended to limit any legal defenses or
         objections that you may have to a third party’s, including a
         government’s request to disclose your information. Starwants to make
         sure that your Information is accurate and up to date. You may ask to
         modify, correct or remove information with the tools and account
         settings of the Service, or otherwise by contacting STARVISTAR GAMING
-        LLP(refered to as the Ring Ludo)at .
+        LLP(refered to as the AzAddaLudo)at .
       </div>
       <div className="privacy-container-text">
         If any court or other competent authority finds any of this Privacy
@@ -264,7 +264,7 @@ const Privacy = () => {
         courts located in the city of Jaipur/Rajasthan – India. You consent the
         jurisdiction and venue in such courts and waive any objection as to
         inconvenient forum STARVISTAR GAMING LLP Services(refered to as the
-        Ring Ludo) may revise or amend this Privacy Policy from time to time.
+        AzAddaLudo) may revise or amend this Privacy Policy from time to time.
       </div>
     </main>
   );

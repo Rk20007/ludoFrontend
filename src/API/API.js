@@ -3,6 +3,10 @@ import Cookies from "js-cookie";
 
 const baseURL = import.meta.env.VITE_API_URL;
 
+/** Base path for gateway routes: e.g. `/api/payment` or `/api/v1/payment` (set in .env if backend differs). */
+const paymentApiBase = () =>
+  `${baseURL}${import.meta.env.VITE_PAYMENT_API_BASE || "/api/payment"}`;
+
 export const loginbyNumber = async (data) => {
   try {
     const response = await axios.post(`${baseURL}/api/v1/users/generate-otp`, {
@@ -23,21 +27,8 @@ export const loginbyNumber = async (data) => {
 };
 
 export const loginbyOtp = async (data) => {
-  // Hardcoded OTP for testing
-  if (data.mobileNo === "7740847114" && data.otp === "123456") {
-    return {
-      statusCode: 200,
-      status: true,
-      message: "OTP verified successfully",
-      data: {
-        token: "test-token-hardcoded",
-        user: {
-          mobileNo: "7740847114",
-          verified: true,
-        },
-      },
-    };
-  }
+  // ✅ REMOVED: hardcoded test token block that was causing "jwt malformed"
+  // It was saving "test-token-hardcoded" as the auth token for number 7740847114
 
   let obj =
     data.referalCode !== ""
@@ -50,6 +41,7 @@ export const loginbyOtp = async (data) => {
           mobileNo: data.mobileNo,
           otp: data.otp,
         };
+
   try {
     const response = await axios.post(
       `${baseURL}/api/v1/users/verify-otp`,
@@ -89,7 +81,7 @@ export const redendOtp = async (data) => {
   }
 };
 
-export const getBalanceDetail = async (data) => {
+export const getBalanceDetail = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/users/user-dashboard`, {
       headers: {
@@ -111,7 +103,7 @@ export const getBalanceDetail = async (data) => {
   }
 };
 
-export const profileData = async (data) => {
+export const profileData = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/users`, {
       headers: {
@@ -228,6 +220,58 @@ export const rechargeAPI = async (data) => {
   }
 };
 
+/** UPI gateway: create order (backend returns QR / UPI link + ids for status checks). */
+export const createPaymentOrder = async (data) => {
+  try {
+    const response = await axios.post(
+      `${paymentApiBase()}/create-order`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("verifyToken")}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    if (
+      error?.response?.data?.statusCode === 401 ||
+      error?.response?.data?.statusCode === 403
+    ) {
+      localStorage.clear();
+      Cookies.remove("verifyToken");
+      window.location.href = "/login";
+    }
+    return error;
+  }
+};
+
+/** Poll after user pays; backend should match gateway / wallet status (same transaction row as manual flow). */
+export const checkPaymentStatus = async (data) => {
+  try {
+    const response = await axios.post(
+      `${paymentApiBase()}/check-status`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("verifyToken")}`,
+        },
+      }
+    );
+    return response;
+  } catch (error) {
+    if (
+      error?.response?.data?.statusCode === 401 ||
+      error?.response?.data?.statusCode === 403
+    ) {
+      localStorage.clear();
+      Cookies.remove("verifyToken");
+      window.location.href = "/login";
+    }
+    return error;
+  }
+};
+
 export const withdrawAPI = async (data) => {
   try {
     const response = await axios.post(`${baseURL}/api/v1/transaction`, data, {
@@ -249,7 +293,7 @@ export const withdrawAPI = async (data) => {
   }
 };
 
-export const transactionHistoryAPI = async (data) => {
+export const transactionHistoryAPI = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/transaction`, {
       headers: {
@@ -270,7 +314,7 @@ export const transactionHistoryAPI = async (data) => {
   }
 };
 
-export const gameHistoryAPI = async (data) => {
+export const gameHistoryAPI = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/battle/game-history`, {
       headers: {
@@ -291,7 +335,7 @@ export const gameHistoryAPI = async (data) => {
   }
 };
 
-export const NotificationAPI = async (data) => {
+export const NotificationAPI = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/notification`, {
       headers: {
@@ -312,7 +356,7 @@ export const NotificationAPI = async (data) => {
   }
 };
 
-export const ReferHistorynAPI = async (data) => {
+export const ReferHistorynAPI = async () => {
   try {
     const response = await axios.get(
       `${baseURL}/api/v1/users/referral-history`,
@@ -336,7 +380,7 @@ export const ReferHistorynAPI = async (data) => {
   }
 };
 
-export const GetBattleDataAPI = async (data) => {
+export const GetBattleDataAPI = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/battle`, {
       headers: {
@@ -345,7 +389,6 @@ export const GetBattleDataAPI = async (data) => {
     });
     return response;
   } catch (error) {
-    console.log("++++", error);
     if (
       error?.response?.data?.statusCode === 401 ||
       error?.response?.data?.statusCode === 403
@@ -362,9 +405,7 @@ export const CreateBattleAPI = async (data) => {
   try {
     const response = await axios.post(
       `${baseURL}/api/v1/battle/create`,
-      {
-        amount: data,
-      },
+      { amount: data },
       {
         headers: {
           Authorization: `Bearer ${Cookies.get("verifyToken")}`,
@@ -553,7 +594,7 @@ export const BattleResultAPI = async (data) => {
   }
 };
 
-export const ReferNEarnAPI = async (data) => {
+export const ReferNEarnAPI = async () => {
   try {
     const response = await axios.get(
       `${baseURL}/api/v1/users/referr-and-earn-page`,
@@ -585,7 +626,6 @@ export const adminLogin = async (data) => {
     );
     return response;
   } catch (error) {
-    console.log("error", error?.response?.data?.message?.email);
     return error;
   }
 };
@@ -657,7 +697,7 @@ export const adminUpdateQR = async (data) => {
   }
 };
 
-export const adminGetSetting = async (data) => {
+export const adminGetSetting = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/admin/settings`, {
       headers: {
@@ -687,7 +727,7 @@ export const adminReferAmount = async (data) => {
   }
 };
 
-export const adminAllUsers = async (data) => {
+export const adminAllUsers = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/admin/all-users`, {
       headers: {
@@ -730,7 +770,7 @@ export const adminSocialUpdate = async (data) => {
   }
 };
 
-export const adminKycDetails = async (data) => {
+export const adminKycDetails = async () => {
   try {
     const response = await axios.get(
       `${baseURL}/api/v1/admin/get-verification-request-list`,
@@ -780,7 +820,7 @@ export const adminKycRejectDetails = async (data) => {
   }
 };
 
-export const adminTournamentGet = async (data) => {
+export const adminTournamentGet = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/battle/admin/list`, {
       headers: {
@@ -838,12 +878,11 @@ export const adminDashboard = async (data) => {
     });
     return response;
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 };
 
-export const adminUserList = async (data) => {
+export const adminUserList = async () => {
   try {
     const response = await axios.get(`${baseURL}/api/v1/admin/all-users-list`, {
       headers: {
@@ -852,7 +891,6 @@ export const adminUserList = async (data) => {
     });
     return response;
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 };
@@ -870,7 +908,6 @@ export const adminUserBlock = async (data) => {
     );
     return response;
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 };
@@ -888,7 +925,6 @@ export const adminUserPenality = async (data) => {
     );
     return response;
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 };
@@ -906,7 +942,6 @@ export const adminUserBonus = async (data) => {
     );
     return response;
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 };
@@ -924,7 +959,6 @@ export const adminSetPercentage = async (data) => {
     );
     return response;
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 };
@@ -941,7 +975,6 @@ export const adminUserData = async (data) => {
     );
     return response;
   } catch (error) {
-    console.log("error", error);
     return error;
   }
 };
